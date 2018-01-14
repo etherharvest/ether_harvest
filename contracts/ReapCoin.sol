@@ -1,13 +1,26 @@
 pragma solidity ^0.4.17;
 
 contract ReapCoin {
+  address public minter;
+  uint public id = 2;
   mapping (address => uint) balances;
 
   function ReapCoin() public {
-    balances[tx.origin] = 10000;
+    minter = msg.sender;
   }
 
   function getBalance(address addr) public view returns(uint) {
     return balances[addr];
+  }
+
+  /**
+    * If we remove this then instance.id() stops working D:
+    */
+  function getId() public constant returns(uint) {
+    return id;
+  }
+
+  function mine(address addr) public {
+    balances[addr] += 100;
   }
 }

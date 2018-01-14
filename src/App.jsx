@@ -2,15 +2,24 @@ import React, { Component } from 'react'
 import Web3 from 'web3'
 import logo from './logo.svg'
 import './App.css'
+import contract from 'truffle-contract'
+const ReapCoinJSON = require('./ReapCoin.json')
 
 class App extends Component {
   constructor () {
     super()
+    this.mine = this.mine.bind(this)
     this.state = {}
   }
 
+  mine () {
+    const ReapCoin = contract(ReapCoinJSON)
+    ReapCoin.setProvider(window.web3.currentProvider)
+    const account = this.state.web3.eth.accounts[0]
+    ReapCoin.deployed().then(instance => instance.mine(account, {from: account}))
+  }
+
   componentDidMount () {
-    console.log('what is web3 right now: ' + window.web3)
     let web3Provider
     if (typeof window.web3 !== 'undefined') {
       web3Provider = window.web3.currentProvider
@@ -31,6 +40,9 @@ class App extends Component {
         <p className='App-intro'>
           To get started, edit <code>src/App.js</code> and save to reload.
         </p>
+        <button onClick={this.mine}>
+          Mine Reap
+        </button>
       </div>
     )
   }

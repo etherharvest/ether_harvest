@@ -1,5 +1,5 @@
-var ReapCoin = artifacts.require('ReapCoin');
+var ReapToken = artifacts.require('ReapToken');
 
 module.exports = function (deployer) {
-  deployer.deploy(ReapCoin)
+  deployer.deploy(ReapToken)
 }

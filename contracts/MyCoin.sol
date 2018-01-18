@@ -1,11 +1,11 @@
 pragma solidity ^0.4.17;
 
-contract ReapCoin {
+contract MyCoin {
   address public minter;
   uint public id = 2;
   mapping (address => uint) balances;
 
-  function ReapCoin() public {
+  function MyCoin() public {
     minter = msg.sender;
   }
 

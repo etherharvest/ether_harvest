@@ -1,18 +1,18 @@
-const ReapCoin = artifacts.require('ReapCoin')
+const MyCoin = artifacts.require('MyCoin')
 
-contract('ReapCoin', accounts => {
+contract('MyCoin', accounts => {
 
-  it('should mine 100 ReapCoin', () => {
-    let reap
+  it('should mine 100 MyCoin', () => {
+    let my
     let account = accounts[1]
-    return ReapCoin
+    return MyCoin
       .deployed()
       .then(instance => {
-        reap = instance
+        my = instance
         return instance.mine(account)
       })
       .then(() => {
-        return reap.getBalance.call(account)
+        return my.getBalance.call(account)
       })
       .then(balance => {
         assert.equal(balance.valueOf(), 100, '100 wasn\'t mine')
@@ -20,7 +20,7 @@ contract('ReapCoin', accounts => {
   })
 
   it('should get the id', () => {
-    return ReapCoin
+    return MyCoin
       .deployed()
       .then(instance => {
         return instance.id()
